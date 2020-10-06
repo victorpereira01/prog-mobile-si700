@@ -135,7 +135,7 @@ Widget generateTrabalhoView() {
         Container(
           padding: EdgeInsets.only(top: 15),
           child: Text(
-            "TEMA DO APP",
+            "APP DE CONTROLE FINANCEIRO",
             style: TextStyle(
                 fontSize: 23,
                 fontWeight: FontWeight.bold,
@@ -143,17 +143,29 @@ Widget generateTrabalhoView() {
           ),
         ),
         Padding(
-          padding: EdgeInsets.only(right: 20, left: 20, top: 10),
-          child: Text(
-            "Biltong shankle kevin boudin pork chop beef meatloaf chicken pig flank "
-            "sirloin buffalo pastrami hamburger brisket. Tail bresaola pig ham, porchetta "
-            "drumstick pastrami boudin ribeye. Corned beef jowl pastrami, landjaeger ",
-            style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-                color: Colors.deepPurple),
-          ),
-        )
+            padding: EdgeInsets.only(right: 20, left: 20, top: 15),
+            child: Column(
+              children: [
+                Text(
+                  "App de controle financeiro para gerenciar receitas e gastos",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.deepPurple),
+                ),
+                Container(
+                  padding: EdgeInsets.only(top: 20),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Image.asset('assets/images/main.jpg', width: 185),
+                      Image.asset('assets/images/list.jpg', width: 185),
+                    ],
+                  ),
+                )
+              ],
+            ))
       ],
     ),
   );
