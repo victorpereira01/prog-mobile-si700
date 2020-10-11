@@ -86,45 +86,45 @@ Widget generateAlexandreView() {
   ));
 }
 
-Widget generateTrabalhoView() {
-  return Center(
-    child: Column(
-      children: [
-        Container(
-          padding: EdgeInsets.only(top: 15),
-          child: Text(
-            "APP DE CONTROLE FINANCEIRO",
-            style: TextStyle(
-                fontSize: 23,
-                fontWeight: FontWeight.bold,
-                color: Colors.deepPurple),
-          ),
-        ),
-        Padding(
-            padding: EdgeInsets.only(right: 20, left: 20, top: 15),
-            child: Column(
-              children: [
-                Text(
-                  "App de controle financeiro para gerenciar receitas e gastos",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.deepPurple),
-                ),
-                Container(
-                  padding: EdgeInsets.only(top: 20),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Image.asset('assets/images/main.jpg', width: 185),
-                      Image.asset('assets/images/list.jpg', width: 185),
-                    ],
-                  ),
-                )
-              ],
-            ))
-      ],
-    ),
-  );
-}
+// Widget generateTrabalhoView() {
+//   return Center(
+//     child: Column(
+//       children: [
+//         Container(
+//           padding: EdgeInsets.only(top: 15),
+//           child: Text(
+//             "APP DE CONTROLE FINANCEIRO",
+//             style: TextStyle(
+//                 fontSize: 23,
+//                 fontWeight: FontWeight.bold,
+//                 color: Colors.deepPurple),
+//           ),
+//         ),
+//         Padding(
+//             padding: EdgeInsets.only(right: 20, left: 20, top: 15),
+//             child: Column(
+//               children: [
+//                 Text(
+//                   "App de controle financeiro para gerenciar receitas e gastos",
+//                   textAlign: TextAlign.center,
+//                   style: TextStyle(
+//                       fontSize: 20,
+//                       fontWeight: FontWeight.bold,
+//                       color: Colors.deepPurple),
+//                 ),
+//                 Container(
+//                   padding: EdgeInsets.only(top: 20),
+//                   child: Row(
+//                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+//                     children: [
+//                       Image.asset('assets/images/main.jpg', width: 185),
+//                       Image.asset('assets/images/list.jpg', width: 185),
+//                     ],
+//                   ),
+//                 )
+//               ],
+//             ))
+//       ],
+//     ),
+//   );
+// }

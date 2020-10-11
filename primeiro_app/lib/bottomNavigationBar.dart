@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'views.dart';
+import 'form.dart';
 
 class MyBottomNavigationBar extends StatefulWidget {
   @override
@@ -18,11 +19,7 @@ class _MyBottomNavigationBar extends State<MyBottomNavigationBar> {
 
     _currentPage = 0;
 
-    _pages = [
-      generateVictorView(),
-      generateAlexandreView(),
-      generateTrabalhoView()
-    ];
+    _pages = [generateVictorView(), generateAlexandreView(), MyForm()];
   }
 
   @override
