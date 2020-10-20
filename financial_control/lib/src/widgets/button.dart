@@ -12,7 +12,7 @@ class Button extends StatelessWidget {
     return RaisedButton(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(40)),
         color: Colors.deepPurple,
-        padding: EdgeInsets.all(8),
+        padding: EdgeInsets.all(12),
         child: Text(
           text,
           style: TextStyle(

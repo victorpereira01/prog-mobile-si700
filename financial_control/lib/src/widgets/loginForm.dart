@@ -33,8 +33,8 @@ class _LoginFormState extends State<LoginForm> {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        Text("Log In",
-            style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold)),
+        Text("Login",
+            style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold)),
         Form(
             key: formKey,
             child: Column(
@@ -56,18 +56,22 @@ class _LoginFormState extends State<LoginForm> {
                 onPress: () =>
                     {formKey.currentState.save(), loginData.showValues()})),
         Container(
+          padding: EdgeInsets.all(10),
           alignment: Alignment.center,
           child: Text("Don't have an account? Sign up",
-              style: TextStyle(fontSize: 16, color: Colors.black)),
+              style: TextStyle(fontSize: 16)),
         ),
         Container(
           padding: EdgeInsets.only(top: 36),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              FaIcon(FontAwesomeIcons.facebookSquare, size: 45),
-              FaIcon(FontAwesomeIcons.googlePlusSquare, size: 45),
-              FaIcon(FontAwesomeIcons.twitterSquare, size: 45),
+              FaIcon(FontAwesomeIcons.facebookSquare,
+                  size: 56, color: Colors.grey[800]),
+              FaIcon(FontAwesomeIcons.googlePlusSquare,
+                  size: 56, color: Colors.grey[800]),
+              FaIcon(FontAwesomeIcons.twitterSquare,
+                  size: 56, color: Colors.grey[800]),
             ],
           ),
         )

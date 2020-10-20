@@ -8,20 +8,21 @@ class LoginView extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.deepPurple,
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(90),
+        preferredSize: Size.fromHeight(110),
         child: AppBar(
+          toolbarHeight: 90,
           elevation: 0,
           title: Container(
-            padding: EdgeInsets.only(top: 35),
+            padding: EdgeInsets.only(top: 30),
             child: Text(
               "Financial Control",
-              style: TextStyle(fontSize: 34),
+              style: TextStyle(fontSize: 36),
             ),
           ),
         ),
       ),
       body: Container(
-        padding: EdgeInsets.all(20),
+        padding: EdgeInsets.only(right: 20, left: 20, top: 40),
         decoration: BoxDecoration(
             borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(30), topRight: Radius.circular(30)),
