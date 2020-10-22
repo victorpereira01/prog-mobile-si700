@@ -1,3 +1,4 @@
+import 'package:financial_control/src/views/navigationView.dart';
 import 'package:financial_control/src/widgets/button.dart';
 import 'package:financial_control/src/widgets/inputContainer.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -53,8 +54,15 @@ class _LoginFormState extends State<LoginForm> {
             padding: EdgeInsets.only(top: 48, bottom: 32),
             child: Button(
                 text: "Sign In",
-                onPress: () =>
-                    {formKey.currentState.save(), loginData.showValues()})),
+                onPress: () => {
+                      formKey.currentState.save(),
+                      loginData.showValues(),
+                      Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                              builder: (BuildContext context) =>
+                                  NavigationView()))
+                    })),
         Container(
           padding: EdgeInsets.all(10),
           alignment: Alignment.center,
