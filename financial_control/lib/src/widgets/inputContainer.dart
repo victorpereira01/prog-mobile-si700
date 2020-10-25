@@ -23,10 +23,12 @@ class _InputContainerState extends State<InputContainer> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          //input label
           Container(
               padding: EdgeInsets.only(top: 40, bottom: 8),
               child: Text(widget.labelName,
                   style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold))),
+          // input field
           TextFormField(
             style: TextStyle(fontSize: 18),
             decoration: InputDecoration(

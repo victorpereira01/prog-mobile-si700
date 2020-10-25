@@ -29,6 +29,7 @@ class _MainViewState extends State<MainView> {
               "RS 2.000,00",
               style: TextStyle(color: Colors.deepPurple, fontSize: 48),
             ),
+            // revenues and expenses container
             Container(
               height: 100,
               margin: EdgeInsets.only(top: 20),
@@ -39,6 +40,7 @@ class _MainViewState extends State<MainView> {
                     blurRadius: 5,
                     offset: Offset(2, 2))
               ]),
+              // revenues history box
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
@@ -59,6 +61,7 @@ class _MainViewState extends State<MainView> {
                               fontWeight: FontWeight.bold)),
                     ],
                   ),
+                  // expenses history box
                   Column(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
@@ -102,6 +105,7 @@ class _MainViewState extends State<MainView> {
   }
 }
 
+// build a TransactionItem for every item of litems
 ListView getTransactions() {
   return ListView.builder(
       itemCount: litems.length,

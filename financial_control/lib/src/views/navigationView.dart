@@ -40,9 +40,9 @@ class _NavigationView extends State<NavigationView> {
         child: BottomNavigationBar(
           items: [
             BottomNavigationBarItem(
-                icon: Icon(Icons.home), title: Text("SALVE")),
+                icon: Icon(Icons.home), title: Text("home")),
             BottomNavigationBarItem(
-                icon: Icon(Icons.view_list), title: Text("CASA")),
+                icon: Icon(Icons.view_list), title: Text("transactions")),
           ],
           showSelectedLabels: false,
           showUnselectedLabels: false,
