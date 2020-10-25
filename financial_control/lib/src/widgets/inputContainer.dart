@@ -41,6 +41,11 @@ class _InputContainerState extends State<InputContainer> {
                         BorderSide(color: Colors.deepPurple, width: 3))),
             obscureText: widget.hide,
             onSaved: widget.onSaved,
+            validator: (String value) {
+              if (value.length == 0) {
+                return "This field must not be blank";
+              }
+            },
           ),
         ],
       ),

@@ -51,19 +51,42 @@ class _LoginFormState extends State<LoginForm> {
               ],
             )),
         Container(
-            padding: EdgeInsets.only(top: 48, bottom: 32),
-            child: Button(
-                text: "Sign In",
-                onPress: () => {
-                      formKey.currentState.save(),
-                      loginData.showValues(),
-                      //push view without back navigation
-                      Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                              builder: (BuildContext context) =>
-                                  NavigationView()))
-                    })),
+          padding: EdgeInsets.only(top: 48, bottom: 32),
+          child: Button(
+            text: "Sign In",
+            onPress: () => {
+              if (formKey.currentState.validate())
+                {
+                  formKey.currentState.save(),
+                  loginData.showValues(),
+                  //push view without back navigation
+                  Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                          builder: (BuildContext context) => NavigationView()))
+                }
+              else
+                {
+                  showDialog(
+                    context: context,
+                    builder: (context) => AlertDialog(
+                      title: Text("An error ocurred! Try again later"),
+                      actions: [
+                        FlatButton(
+                          child: Text(
+                            "OK",
+                            style: TextStyle(
+                                color: Colors.deepPurple, fontSize: 24),
+                          ),
+                          onPressed: () => Navigator.pop(context),
+                        )
+                      ],
+                    ),
+                  ),
+                }
+            },
+          ),
+        ),
         Container(
           padding: EdgeInsets.all(10),
           alignment: Alignment.center,
