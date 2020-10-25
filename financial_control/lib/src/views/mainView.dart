@@ -1,3 +1,4 @@
+import 'package:financial_control/src/views/addTransactionView.dart';
 import 'package:financial_control/src/widgets/button.dart';
 import 'package:financial_control/src/widgets/header.dart';
 import 'package:financial_control/src/widgets/topic.dart';
@@ -96,7 +97,13 @@ class _MainViewState extends State<MainView> {
             Container(
               margin: EdgeInsets.only(top: 40),
               width: double.infinity,
-              child: Button(text: "Add Transaction", onPress: () => {}),
+              child: Button(
+                  text: "Add Transaction",
+                  onPress: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (BuildContext context) =>
+                              AddTransactionView()))),
             ),
           ],
         ),
