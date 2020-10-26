@@ -25,7 +25,7 @@ class _InputContainerState extends State<InputContainer> {
         children: [
           //input label
           Container(
-              padding: EdgeInsets.only(top: 40, bottom: 8),
+              padding: EdgeInsets.only(top: 30, bottom: 8),
               child: Text(widget.labelName,
                   style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold))),
           // input field
