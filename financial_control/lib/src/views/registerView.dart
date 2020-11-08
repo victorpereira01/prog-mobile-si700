@@ -1,8 +1,6 @@
-import 'package:financial_control/src/widgets/loginForm.dart';
 import 'package:financial_control/src/widgets/registerForm.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class RegisterView extends StatefulWidget {
   @override

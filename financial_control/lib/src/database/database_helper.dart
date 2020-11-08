@@ -20,7 +20,7 @@ class DatabaseHelper {
 
   Future<Database> initDatabase() async {
     Directory directory = await getApplicationDocumentsDirectory();
-    String path = directory.path + "financial_control.db";
+    String path = directory.path + "app.db";
 
     var db = await openDatabase(path, version: 1, onCreate: _createDb);
 
@@ -30,43 +30,59 @@ class DatabaseHelper {
   _createDb(Database db, int newVersion) async {
     await db.execute(
         "CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY AUTOINCREMENT, email TEXT, password TEXT, sendNews INTEGER)");
+    await db.execute(
+        "CREATE TABLE IF NOT EXISTS transactions (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, value DOUBLE, userId INTEGER, FOREIGN KEY(userId) REFERENCES users(id))");
   }
 
-  insertUser(User user) async {
+  insert(User user) async {
     Database db = await this.database;
 
-    var result = await db.insert("users", user.toMap(), nullColumnHack: "id");
+    String userEmail = user.email;
+    String userPassword = user.password;
+    int sendNews = user.sendNews;
 
-    return result;
+    await db.rawQuery(
+        "INSERT INTO users (email, password, sendNews) VALUES ('$userEmail', '$userPassword', $sendNews)");
   }
 
-  getUsersMapList() async {
+  Future<User> getUser(String email, String password) async {
+    Database db = await this.database;
+
+    List<Map> result = await db.rawQuery(
+        "SELECT * FROM users WHERE email = '$email' AND password = '$password'");
+
+    if (result.length > 0) {
+      return new User.fromMap(result.first);
+    }
+
+    return null;
+  }
+
+  Future<List> getMapList() async {
     Database db = await this.database;
 
     var result = await db.rawQuery("SELECT * FROM users");
 
-    return result;
+    return result.toList();
   }
 
-  getUsersList() async {
-    var usersMapList = await getUsersMapList();
-    int count = usersMapList.length;
-    List<User> usersList = List<User>();
+  // getList() async {
+  //   var mapList = await getMapList();
+  //   int count = mapList.length;
+  //   List<User> list = List<User>();
 
-    for (int i = 0; i < count; i++) {
-      usersList.add(User.fromMap(usersMapList[i]));
-    }
+  //   for (int i = 0; i < count; i++) {
+  //     list.add(User.fromMap(mapList[i]));
+  //   }
 
-    return usersList;
-  }
+  //   return list;
+  // }
 
-  getCount() async {
+  getCount(String table) async {
     Database db = await this.database;
 
-    var x = await db.rawQuery("SELECT COUNT(*) FROM users");
+    var x = await db.rawQuery("SELECT COUNT(*) FROM $table");
 
-    int result = Sqflite.firstIntValue(x);
-
-    return result;
+    return Sqflite.firstIntValue(x);
   }
 }

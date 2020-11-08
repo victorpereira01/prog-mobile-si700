@@ -1,19 +1,10 @@
+import 'package:financial_control/src/database/database_helper.dart';
+import 'package:financial_control/src/models/user.dart';
 import 'package:financial_control/src/views/navigationView.dart';
 import 'package:financial_control/src/widgets/button.dart';
 import 'package:financial_control/src/widgets/inputContainer.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
-class LoginData {
-  String email = "";
-  String password = "";
-
-  showValues() {
-    print("Email: $email");
-    print("Password: $password");
-    print("");
-  }
-}
 
 class LoginForm extends StatefulWidget {
   @override
@@ -25,7 +16,9 @@ class LoginForm extends StatefulWidget {
 class _LoginFormState extends State<LoginForm> {
   final GlobalKey<FormState> formKey = new GlobalKey<FormState>();
 
-  LoginData loginData = new LoginData();
+  User user = new User("", "", 1);
+
+  DatabaseHelper helper = DatabaseHelper.helper;
 
   @override
   Widget build(BuildContext context) {
@@ -42,27 +35,49 @@ class _LoginFormState extends State<LoginForm> {
                 InputContainer(
                     labelName: "E-mail",
                     hide: false,
-                    onSaved: (value) => loginData.email = value),
+                    onSaved: (value) => user.email = value),
                 InputContainer(
                     labelName: "Password",
                     hide: true,
-                    onSaved: (value) => loginData.password = value)
+                    onSaved: (value) => user.password = value)
               ],
             )),
         Container(
           padding: EdgeInsets.only(top: 48, bottom: 32),
           child: Button(
             text: "Sign In",
-            onPress: () => {
+            onPress: () async => {
               if (formKey.currentState.validate())
                 {
                   formKey.currentState.save(),
-                  loginData.showValues(),
-                  //push view without back navigation
-                  Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                          builder: (BuildContext context) => NavigationView()))
+                  if (await validateUser() != null)
+                    {
+                      //push view without back navigation
+                      Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                              builder: (BuildContext context) =>
+                                  NavigationView()))
+                    }
+                  else
+                    {
+                      showDialog(
+                        context: context,
+                        builder: (context) => AlertDialog(
+                          title: Text("User not found!"),
+                          actions: [
+                            FlatButton(
+                              child: Text(
+                                "OK",
+                                style: TextStyle(
+                                    color: Colors.deepPurple, fontSize: 24),
+                              ),
+                              onPressed: () => Navigator.pop(context),
+                            )
+                          ],
+                        ),
+                      )
+                    }
                 }
               else
                 {
@@ -88,5 +103,18 @@ class _LoginFormState extends State<LoginForm> {
         ),
       ],
     );
+  }
+
+  validateUser() async {
+    // var usuarios = helper.getMapList();
+    // usuarios.then((value) => print(value));
+
+    User usr = await helper.getUser(user.email, user.password);
+
+    if (usr == null) {
+      return null;
+    } else {
+      return usr;
+    }
   }
 }

@@ -24,7 +24,7 @@ class User {
   int get sendNews => _sendNews;
 
   set email(String newEmail) {
-    this._email = email;
+    this._email = newEmail;
   }
 
   set password(String newPassword) {

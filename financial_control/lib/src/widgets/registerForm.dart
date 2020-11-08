@@ -1,23 +1,10 @@
-import 'package:financial_control/src/views/loginView.dart';
+import 'package:financial_control/src/database/database_helper.dart';
+import 'package:financial_control/src/models/transaction.dart';
+import 'package:financial_control/src/models/user.dart';
 import 'package:financial_control/src/widgets/button.dart';
 import 'package:financial_control/src/widgets/inputContainer.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
-class RegisterData {
-  String email = "";
-  String password = "";
-  bool acceptTheTerms = false;
-  int receiveNews = 1;
-
-  showValues() {
-    print("Email: $email");
-    print("Password: $password");
-    print("Accept the terms: $acceptTheTerms");
-    print("Receive News: $receiveNews");
-    print("");
-  }
-}
 
 class RegisterForm extends StatefulWidget {
   @override
@@ -29,7 +16,13 @@ class RegisterForm extends StatefulWidget {
 class _RegisterFormState extends State<RegisterForm> {
   final GlobalKey<FormState> formKey = new GlobalKey<FormState>();
 
-  RegisterData registerData = new RegisterData();
+  User user = new User("", "", 1);
+
+  String email;
+
+  bool acceptTheTerms = false;
+
+  DatabaseHelper helper = DatabaseHelper.helper;
 
   @override
   Widget build(BuildContext context) {
@@ -46,19 +39,19 @@ class _RegisterFormState extends State<RegisterForm> {
                 InputContainer(
                     labelName: "E-mail",
                     hide: false,
-                    onSaved: (value) => registerData.email = value),
+                    onSaved: (value) => user.email = value),
                 InputContainer(
                     labelName: "Password",
                     hide: true,
-                    onSaved: (value) => registerData.password = value),
+                    onSaved: (value) => user.password = value),
                 // container to wrap the checkbox and the statement
                 Container(
                   margin: EdgeInsets.only(top: 12, bottom: 10),
                   child: Row(children: [
                     Checkbox(
-                      value: registerData.acceptTheTerms,
+                      value: acceptTheTerms,
                       onChanged: (bool value) => setState(() {
-                        registerData.acceptTheTerms = value;
+                        acceptTheTerms = value;
                       }),
                     ),
                     Text(
@@ -80,9 +73,9 @@ class _RegisterFormState extends State<RegisterForm> {
                       Row(children: [
                         Radio(
                           value: 1,
-                          groupValue: registerData.receiveNews,
+                          groupValue: user.sendNews,
                           onChanged: (int value) => setState(() {
-                            registerData.receiveNews = value;
+                            user.sendNews = value;
                           }),
                         ),
                         Text(
@@ -91,9 +84,9 @@ class _RegisterFormState extends State<RegisterForm> {
                         ),
                         Radio(
                           value: 2,
-                          groupValue: registerData.receiveNews,
+                          groupValue: user.sendNews,
                           onChanged: (int value) => setState(() {
-                            registerData.receiveNews = value;
+                            user.sendNews = value;
                           }),
                         ),
                         Text(
@@ -110,11 +103,13 @@ class _RegisterFormState extends State<RegisterForm> {
                   child: Button(
                     text: "Sign up",
                     onPress: () => {
-                      if (formKey.currentState.validate() &&
-                          registerData.acceptTheTerms)
+                      if (formKey.currentState.validate() && acceptTheTerms)
                         {
                           formKey.currentState.save(),
-                          registerData.showValues(),
+
+                          // persists data on the database
+                          _saveData(),
+
                           // shows success message and redirects to loginView
                           showDialog(
                             context: context,
@@ -162,5 +157,13 @@ class _RegisterFormState extends State<RegisterForm> {
             )),
       ],
     );
+  }
+
+  _saveData() async {
+    await helper.insert(user);
+
+    await helper.getCount("users").then((value) {
+      print("value = $value");
+    });
   }
 }
