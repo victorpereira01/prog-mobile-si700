@@ -160,7 +160,7 @@ class _RegisterFormState extends State<RegisterForm> {
   }
 
   _saveData() async {
-    await helper.insert(user);
+    await helper.insertUser(user);
 
     await helper.getCount("users").then((value) {
       print("value = $value");

@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:financial_control/src/models/transaction.dart' as MyTransaction;
 import 'package:financial_control/src/models/user.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
@@ -34,7 +35,7 @@ class DatabaseHelper {
         "CREATE TABLE IF NOT EXISTS transactions (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, value DOUBLE, userId INTEGER, FOREIGN KEY(userId) REFERENCES users(id))");
   }
 
-  insert(User user) async {
+  insertUser(User user) async {
     Database db = await this.database;
 
     String userEmail = user.email;
@@ -43,6 +44,17 @@ class DatabaseHelper {
 
     await db.rawQuery(
         "INSERT INTO users (email, password, sendNews) VALUES ('$userEmail', '$userPassword', $sendNews)");
+  }
+
+  insertTransaction(MyTransaction.Transaction transaction) async {
+    Database db = await this.database;
+
+    String transactionName = transaction.name;
+    double transactionValue = transaction.value;
+    int userId = transaction.userId;
+
+    await db.rawQuery(
+        "INSERT INTO transactions (name, value, userId) VALUES ('$transactionName', $transactionValue, $userId)");
   }
 
   Future<User> getUser(String email, String password) async {
@@ -58,7 +70,7 @@ class DatabaseHelper {
     return null;
   }
 
-  Future<List> getMapList() async {
+  Future<List> findAllUsers() async {
     Database db = await this.database;
 
     var result = await db.rawQuery("SELECT * FROM users");
@@ -66,17 +78,14 @@ class DatabaseHelper {
     return result.toList();
   }
 
-  // getList() async {
-  //   var mapList = await getMapList();
-  //   int count = mapList.length;
-  //   List<User> list = List<User>();
+  Future<List> findAllTransactionsById(int id) async {
+    Database db = await this.database;
 
-  //   for (int i = 0; i < count; i++) {
-  //     list.add(User.fromMap(mapList[i]));
-  //   }
+    var result =
+        await db.rawQuery("SELECT * FROM transactions WHERE userId = $id");
 
-  //   return list;
-  // }
+    return result.toList();
+  }
 
   getCount(String table) async {
     Database db = await this.database;

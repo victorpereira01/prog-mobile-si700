@@ -16,7 +16,7 @@ class LoginForm extends StatefulWidget {
 class _LoginFormState extends State<LoginForm> {
   final GlobalKey<FormState> formKey = new GlobalKey<FormState>();
 
-  User user = new User("", "", 1);
+  User user = new User.withId(null, "", "", 1);
 
   DatabaseHelper helper = DatabaseHelper.helper;
 
@@ -57,7 +57,7 @@ class _LoginFormState extends State<LoginForm> {
                           context,
                           MaterialPageRoute(
                               builder: (BuildContext context) =>
-                                  NavigationView()))
+                                  NavigationView(userId: user.id)))
                     }
                   else
                     {
@@ -106,14 +106,19 @@ class _LoginFormState extends State<LoginForm> {
   }
 
   validateUser() async {
-    // var usuarios = helper.getMapList();
+    // var usuarios = helper.findAllUsers();
     // usuarios.then((value) => print(value));
 
     User usr = await helper.getUser(user.email, user.password);
 
+    user.id = usr.id;
+
     if (usr == null) {
       return null;
     } else {
+      print(usr.email);
+      print(usr.password);
+      print(usr.sendNews);
       return usr;
     }
   }

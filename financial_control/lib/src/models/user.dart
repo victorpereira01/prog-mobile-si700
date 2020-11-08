@@ -23,6 +23,10 @@ class User {
 
   int get sendNews => _sendNews;
 
+  set id(int newId) {
+    this._id = newId;
+  }
+
   set email(String newEmail) {
     this._email = newEmail;
   }
