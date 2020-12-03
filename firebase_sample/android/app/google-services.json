@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "232017723097",
+    "project_id": "si700-2020",
+    "storage_bucket": "si700-2020.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:232017723097:android:a80454dd63761f1a6348c8",
+        "android_client_info": {
+          "package_name": "com.example.firebase_sample"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "232017723097-7nt0n16dh1dr2q44j27bji4ufj56r508.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDQ4Ozr5lTD9APsREDN4OdIHOy2Po9-DjY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "232017723097-7nt0n16dh1dr2q44j27bji4ufj56r508.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
