@@ -24,9 +24,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       if (event == null) {
         yield Unauthenticated();
       } else if (event is RegisterUser) {
-        UserModel userModel = await _authService.createUserWithEmailAndPassword(
+        await _authService.createUserWithEmailAndPassword(
             email: event.username, password: event.password);
-        yield Authenticated(userModel);
       } else if (event is LoginAnonimousUser) {
         await _authService.signInAnonimo();
       } else if (event is LoginUser) {
