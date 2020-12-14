@@ -1,10 +1,7 @@
-import 'package:firebase_sample/bloc/auth_bloc.dart';
-import 'package:firebase_sample/bloc/auth_event.dart';
 import 'package:firebase_sample/views/auth/register.dart';
 import 'package:firebase_sample/views/auth/sign_in.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 class Authenticate extends StatefulWidget {
   Authenticate({Key key, this.title}) : super(key: key);

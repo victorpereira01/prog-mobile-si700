@@ -1,5 +1,6 @@
 import 'package:firebase_sample/bloc/auth_bloc.dart';
 import 'package:firebase_sample/bloc/auth_state.dart';
+import 'package:firebase_sample/bloc/database_bloc.dart';
 import 'package:firebase_sample/views/auth/authenticate.dart';
 import 'package:firebase_sample/views/home/home.dart';
 import 'package:flutter/cupertino.dart';
@@ -12,7 +13,11 @@ class Wrapper extends StatelessWidget {
     return BlocConsumer<AuthBloc, AuthState>(
       builder: (context, state) {
         if (state is Authenticated) {
-          return Home();
+          return BlocProvider<DatabaseBloc>(
+              create: (context) {
+                return DatabaseBloc(state.user.uid);
+              },
+              child: Home());
         } else {
           return Authenticate();
         }

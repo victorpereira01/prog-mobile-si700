@@ -1,5 +1,7 @@
 import 'package:firebase_sample/bloc/auth_bloc.dart';
 import 'package:firebase_sample/bloc/auth_event.dart';
+import 'package:firebase_sample/views/home/book_entry.dart';
+import 'package:firebase_sample/views/home/book_list.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -15,29 +17,34 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("HOME"),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'HOME',
-            ),
-            Text(
-              "algo",
-              style: Theme.of(context).textTheme.headline4,
-            ),
-            RaisedButton(
-              child: Text("Efetuar logoout"),
-              onPressed: () {
-                BlocProvider.of<AuthBloc>(context).add(Logout());
-              },
-            ),
+    return DefaultTabController(
+      length: 2,
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text("Home Screen"),
+          actions: [
+            FlatButton.icon(
+                onPressed: () {
+                  BlocProvider.of<AuthBloc>(context).add(Logout());
+                },
+                icon: Icon(Icons.person),
+                label: Text("Logout"))
           ],
+          bottom: TabBar(tabs: [
+            Tab(
+                icon: Row(
+              children: [Icon(Icons.announcement), Text("Lista de livros")],
+            )),
+            Tab(
+                icon: Row(
+              children: [Icon(Icons.cake), Text("Adicionar livro")],
+            ))
+          ]),
         ),
+        body: TabBarView(children: [
+          BookList(),
+          BookEntry(),
+        ]),
       ),
     );
   }
