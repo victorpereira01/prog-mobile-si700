@@ -1,7 +1,10 @@
+import 'package:financial_control/src/bloc/auth_bloc.dart';
+import 'package:financial_control/src/bloc/auth_event.dart';
 import 'package:financial_control/src/widgets/header.dart';
 import 'package:financial_control/src/widgets/topic.dart';
 import 'package:financial_control/src/widgets/transactionItem.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 List<String> litems = [
   "Conta de Luz",
@@ -22,7 +25,7 @@ class _TransactionsView extends State<TransactionsView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: header(),
+      appBar: header(context),
       body: Container(
         padding: EdgeInsets.all(20),
         child: Column(

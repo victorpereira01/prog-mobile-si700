@@ -1,10 +1,10 @@
-import 'package:financial_control/src/database/database_helper.dart';
-import 'package:financial_control/src/models/transaction.dart';
-import 'package:financial_control/src/models/user.dart';
+import 'package:financial_control/src/bloc/auth_bloc.dart';
+import 'package:financial_control/src/bloc/auth_event.dart';
 import 'package:financial_control/src/widgets/button.dart';
 import 'package:financial_control/src/widgets/inputContainer.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class RegisterForm extends StatefulWidget {
   @override
@@ -16,13 +16,9 @@ class RegisterForm extends StatefulWidget {
 class _RegisterFormState extends State<RegisterForm> {
   final GlobalKey<FormState> formKey = new GlobalKey<FormState>();
 
-  User user = new User("", "", 1);
-
-  String email;
+  RegisterUser registerUser = new RegisterUser();
 
   bool acceptTheTerms = false;
-
-  DatabaseHelper helper = DatabaseHelper.helper;
 
   @override
   Widget build(BuildContext context) {
@@ -39,11 +35,11 @@ class _RegisterFormState extends State<RegisterForm> {
                 InputContainer(
                     labelName: "E-mail",
                     hide: false,
-                    onSaved: (value) => user.email = value),
+                    onSaved: (value) => registerUser.email = value),
                 InputContainer(
                     labelName: "Password",
                     hide: true,
-                    onSaved: (value) => user.password = value),
+                    onSaved: (value) => registerUser.password = value),
                 // container to wrap the checkbox and the statement
                 Container(
                   margin: EdgeInsets.only(top: 12, bottom: 10),
@@ -71,24 +67,12 @@ class _RegisterFormState extends State<RegisterForm> {
                         style: TextStyle(fontSize: 18),
                       ),
                       Row(children: [
-                        Radio(
-                          value: 1,
-                          groupValue: user.sendNews,
-                          onChanged: (int value) => setState(() {
-                            user.sendNews = value;
-                          }),
-                        ),
+                        Radio(value: 1, groupValue: null, onChanged: null),
                         Text(
                           "Sim",
                           style: TextStyle(fontSize: 18),
                         ),
-                        Radio(
-                          value: 2,
-                          groupValue: user.sendNews,
-                          onChanged: (int value) => setState(() {
-                            user.sendNews = value;
-                          }),
-                        ),
+                        Radio(value: 2, groupValue: null, onChanged: null),
                         Text(
                           "Nâo",
                           style: TextStyle(fontSize: 18),
@@ -106,30 +90,7 @@ class _RegisterFormState extends State<RegisterForm> {
                       if (formKey.currentState.validate() && acceptTheTerms)
                         {
                           formKey.currentState.save(),
-
-                          // persists data on the database
-                          _saveData(),
-
-                          // shows success message and redirects to loginView
-                          showDialog(
-                            context: context,
-                            builder: (context) => AlertDialog(
-                              title: Text("Registered successfully!"),
-                              actions: [
-                                FlatButton(
-                                  child: Text(
-                                    "OK",
-                                    style: TextStyle(
-                                        color: Colors.deepPurple, fontSize: 24),
-                                  ),
-                                  onPressed: () => {
-                                    Navigator.of(context).pop(),
-                                    Navigator.pop(context),
-                                  },
-                                )
-                              ],
-                            ),
-                          )
+                          BlocProvider.of<AuthBloc>(context).add(registerUser),
                         }
                       else
                         {
@@ -157,13 +118,5 @@ class _RegisterFormState extends State<RegisterForm> {
             )),
       ],
     );
-  }
-
-  _saveData() async {
-    await helper.insertUser(user);
-
-    await helper.getCount("users").then((value) {
-      print("value = $value");
-    });
   }
 }

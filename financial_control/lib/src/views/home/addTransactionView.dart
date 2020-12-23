@@ -33,7 +33,7 @@ class _AddTransactionView extends State<AddTransactionView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: header(),
+        appBar: header(context),
         body: Container(
           padding: EdgeInsets.all(20),
           child: Column(

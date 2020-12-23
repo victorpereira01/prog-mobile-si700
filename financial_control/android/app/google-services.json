@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1036992847259",
+    "project_id": "financial-control-c052d",
+    "storage_bucket": "financial-control-c052d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1036992847259:android:9c3bf2ade97baf7417953e",
+        "android_client_info": {
+          "package_name": "com.example.financial_control"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1036992847259-oco76tbb9r4is854f9carfi596se3vro.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDQfcAoWAxSYKDSUkkeWZsjcJi3XYmKymE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1036992847259-oco76tbb9r4is854f9carfi596se3vro.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

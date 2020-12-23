@@ -1,6 +1,5 @@
-import 'package:financial_control/src/database/database_helper.dart';
-import 'package:financial_control/src/views/mainView.dart';
-import 'package:financial_control/src/views/transactionsView.dart';
+import 'package:financial_control/src/views/home/mainView.dart';
+import 'package:financial_control/src/views/home/transactionsView.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -19,8 +18,6 @@ class _NavigationView extends State<NavigationView> {
   int _currentPage;
   var _pages;
 
-  DatabaseHelper helper = DatabaseHelper.helper;
-
   @override
   void initState() {
     super.initState();
@@ -32,7 +29,6 @@ class _NavigationView extends State<NavigationView> {
 
   @override
   Widget build(BuildContext context) {
-    loadTransactions();
     return Scaffold(
       body: Center(
         child: _pages.elementAt(_currentPage),
@@ -61,10 +57,5 @@ class _NavigationView extends State<NavigationView> {
         ),
       ),
     );
-  }
-
-  loadTransactions() async {
-    var transactions = helper.findAllTransactionsById(widget.userId);
-    transactions.then((value) => print(value));
   }
 }

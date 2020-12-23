@@ -1,4 +1,4 @@
-import 'package:financial_control/src/views/addTransactionView.dart';
+import 'package:financial_control/src/views/home/addTransactionView.dart';
 import 'package:financial_control/src/widgets/button.dart';
 import 'package:financial_control/src/widgets/header.dart';
 import 'package:financial_control/src/widgets/topic.dart';
@@ -19,7 +19,7 @@ class _MainViewState extends State<MainView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: header(),
+      appBar: header(context),
       body: Container(
         padding: EdgeInsets.all(20),
         child: Column(

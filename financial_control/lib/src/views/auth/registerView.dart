@@ -14,20 +14,6 @@ class _RegisterView extends State<RegisterView> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.deepPurple,
-      appBar: PreferredSize(
-        preferredSize: Size.fromHeight(110),
-        child: AppBar(
-          toolbarHeight: 90,
-          elevation: 0,
-          title: Container(
-            padding: EdgeInsets.only(top: 30),
-            child: Text(
-              "Financial Control",
-              style: TextStyle(fontSize: 36),
-            ),
-          ),
-        ),
-      ),
       body: Container(
         padding: EdgeInsets.only(right: 20, left: 20, top: 40),
         decoration: BoxDecoration(

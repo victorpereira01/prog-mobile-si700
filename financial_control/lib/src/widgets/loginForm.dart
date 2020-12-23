@@ -1,10 +1,10 @@
-import 'package:financial_control/src/database/database_helper.dart';
-import 'package:financial_control/src/models/user.dart';
-import 'package:financial_control/src/views/navigationView.dart';
+import 'package:financial_control/src/bloc/auth_bloc.dart';
+import 'package:financial_control/src/bloc/auth_event.dart';
 import 'package:financial_control/src/widgets/button.dart';
 import 'package:financial_control/src/widgets/inputContainer.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class LoginForm extends StatefulWidget {
   @override
@@ -16,9 +16,7 @@ class LoginForm extends StatefulWidget {
 class _LoginFormState extends State<LoginForm> {
   final GlobalKey<FormState> formKey = new GlobalKey<FormState>();
 
-  User user = new User.withId(null, "", "", 1);
-
-  DatabaseHelper helper = DatabaseHelper.helper;
+  LoginUser loginUser = new LoginUser();
 
   @override
   Widget build(BuildContext context) {
@@ -35,11 +33,11 @@ class _LoginFormState extends State<LoginForm> {
                 InputContainer(
                     labelName: "E-mail",
                     hide: false,
-                    onSaved: (value) => user.email = value),
+                    onSaved: (value) => loginUser.email = value),
                 InputContainer(
                     labelName: "Password",
                     hide: true,
-                    onSaved: (value) => user.password = value)
+                    onSaved: (value) => loginUser.password = value)
               ],
             )),
         Container(
@@ -50,34 +48,7 @@ class _LoginFormState extends State<LoginForm> {
               if (formKey.currentState.validate())
                 {
                   formKey.currentState.save(),
-                  if (await validateUser() != null)
-                    {
-                      //push view without back navigation
-                      Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                              builder: (BuildContext context) =>
-                                  NavigationView(userId: user.id)))
-                    }
-                  else
-                    {
-                      showDialog(
-                        context: context,
-                        builder: (context) => AlertDialog(
-                          title: Text("User not found!"),
-                          actions: [
-                            FlatButton(
-                              child: Text(
-                                "OK",
-                                style: TextStyle(
-                                    color: Colors.deepPurple, fontSize: 24),
-                              ),
-                              onPressed: () => Navigator.pop(context),
-                            )
-                          ],
-                        ),
-                      )
-                    }
+                  BlocProvider.of<AuthBloc>(context).add(loginUser),
                 }
               else
                 {
@@ -103,23 +74,5 @@ class _LoginFormState extends State<LoginForm> {
         ),
       ],
     );
-  }
-
-  validateUser() async {
-    // var usuarios = helper.findAllUsers();
-    // usuarios.then((value) => print(value));
-
-    User usr = await helper.getUser(user.email, user.password);
-
-    user.id = usr.id;
-
-    if (usr == null) {
-      return null;
-    } else {
-      print(usr.email);
-      print(usr.password);
-      print(usr.sendNews);
-      return usr;
-    }
   }
 }
