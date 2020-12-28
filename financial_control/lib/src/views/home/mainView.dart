@@ -1,9 +1,7 @@
 import 'package:financial_control/src/bloc/database_bloc.dart';
 import 'package:financial_control/src/bloc/database_state.dart';
 import 'package:financial_control/src/models/transaction_model.dart';
-import 'package:financial_control/src/views/home/addTransactionView.dart';
 import 'package:financial_control/src/views/home/transactionTile.dart';
-import 'package:financial_control/src/widgets/button.dart';
 import 'package:financial_control/src/widgets/header.dart';
 import 'package:financial_control/src/widgets/topic.dart';
 import 'package:flutter/cupertino.dart';
@@ -20,12 +18,26 @@ class MainView extends StatefulWidget {
 }
 
 class _MainViewState extends State<MainView> {
+  double balance = 0;
+
+  double revenues = 0;
+
+  double expenses = 0;
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<DatabaseBloc, DatabaseState>(
       builder: (context, state) {
         if (state is TransactionsDatabaseState) {
           List<TransactionModel> list = state.transactions;
+          state.transactions.forEach((element) {
+            balance += element.value;
+            if (element.value > 0) {
+              revenues += element.value;
+            } else {
+              expenses += element.value;
+            }
+          });
           return Scaffold(
             appBar: header(context),
             body: Container(
@@ -35,7 +47,7 @@ class _MainViewState extends State<MainView> {
                 children: [
                   topic("Current Balance"),
                   Text(
-                    "RS 2.000,00",
+                    "RS " + balance.toStringAsFixed(2),
                     style: TextStyle(color: Colors.deepPurple, fontSize: 48),
                   ),
                   // revenues and expenses container
@@ -63,7 +75,7 @@ class _MainViewState extends State<MainView> {
                                   fontSize: 20,
                                   fontWeight: FontWeight.w900),
                             ),
-                            Text("RS 2.500,00",
+                            Text("RS " + revenues.toStringAsFixed(2),
                                 style: TextStyle(
                                     color: Colors.green,
                                     fontSize: 20,
@@ -82,7 +94,7 @@ class _MainViewState extends State<MainView> {
                                   fontWeight: FontWeight.w900),
                             ),
                             Text(
-                              "RS 500,00",
+                              "RS " + expenses.toStringAsFixed(2),
                               style: TextStyle(
                                   color: Colors.red,
                                   fontSize: 20,
