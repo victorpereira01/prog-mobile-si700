@@ -20,7 +20,6 @@ class FirebaseAuthenticationService implements AuthRepository {
     UserCredential authResult = await _firebaseAuth.signInWithEmailAndPassword(
         email: email, password: password);
     User user = authResult.user;
-    print("USER ID: ${user.uid}");
     return _userFromFirebaseUser(user);
   }
 
@@ -29,7 +28,6 @@ class FirebaseAuthenticationService implements AuthRepository {
     UserCredential authResult = await _firebaseAuth
         .createUserWithEmailAndPassword(email: email, password: password);
     User user = authResult.user;
-    print("USER ID: ${user.uid}");
     return _userFromFirebaseUser(user);
   }
 

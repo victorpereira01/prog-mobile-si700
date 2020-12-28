@@ -23,7 +23,7 @@ class DatabaseBloc extends Bloc<DatabaseEvent, DatabaseState> {
   @override
   Stream<DatabaseState> mapEventToState(event) async* {
     if (event is AddDatabase) {
-      _databaseService.addTransaction(event.name, event.value);
+      _databaseService.addTransaction(event.name, event.value, event.createdAt);
     } else if (event is DeleteDatabase) {
       _databaseService.removeTransaction(event.transactionId);
     } else if (event is UpdateDatabase) {

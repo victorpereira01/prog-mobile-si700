@@ -13,8 +13,9 @@ class UpdateDatabase extends DatabaseEvent {
 class AddDatabase extends DatabaseEvent {
   String name;
   double value;
+  DateTime createdAt;
 
-  AddDatabase({this.name, this.value});
+  AddDatabase({this.name, this.value, this.createdAt});
 }
 
 class DeleteDatabase extends DatabaseEvent {

@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:financial_control/src/bloc/database_bloc.dart';
 import 'package:financial_control/src/bloc/database_event.dart';
 import 'package:financial_control/src/models/transaction_model.dart';
@@ -66,7 +67,8 @@ class _AddTransactionView extends State<AddTransactionView> {
                               BlocProvider.of<DatabaseBloc>(context).add(
                                   AddDatabase(
                                       name: transaction.name,
-                                      value: transaction.value)),
+                                      value: transaction.value,
+                                      createdAt: Timestamp.now().toDate())),
                               formKey.currentState.reset(),
                             }
                         }),

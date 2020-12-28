@@ -13,15 +13,16 @@ class DatabaseService {
     return transactionCollections
         .doc(uid)
         .collection("my_transactions")
+        .orderBy("createdAt", descending: true)
         .snapshots()
         .map(_transactionListFromSnapshot);
   }
 
-  addTransaction(String name, double value) async {
+  addTransaction(String name, double value, DateTime createdAt) async {
     return await transactionCollections
         .doc(uid)
         .collection("my_transactions")
-        .add({"name": name, "value": value});
+        .add({"name": name, "value": value, "createdAt": createdAt});
   }
 
   removeTransaction(String transactionId) async {
