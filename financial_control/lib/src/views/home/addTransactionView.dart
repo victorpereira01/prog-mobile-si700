@@ -1,22 +1,15 @@
 import 'dart:ui';
 
+import 'package:financial_control/src/bloc/database_bloc.dart';
+import 'package:financial_control/src/bloc/database_event.dart';
+import 'package:financial_control/src/models/transaction_model.dart';
 import 'package:financial_control/src/widgets/button.dart';
 import 'package:financial_control/src/widgets/header.dart';
 import 'package:financial_control/src/widgets/inputContainer.dart';
 import 'package:financial_control/src/widgets/topic.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
-class TransactionData {
-  String name = "";
-  String value = "";
-
-  showValues() {
-    print("Name: $name");
-    print("Value: $value");
-    print("");
-  }
-}
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AddTransactionView extends StatefulWidget {
   @override
@@ -28,7 +21,7 @@ class AddTransactionView extends StatefulWidget {
 class _AddTransactionView extends State<AddTransactionView> {
   final GlobalKey<FormState> formKey = new GlobalKey<FormState>();
 
-  TransactionData transactionData = new TransactionData();
+  final TransactionModel transaction = new TransactionModel();
 
   @override
   Widget build(BuildContext context) {
@@ -46,11 +39,12 @@ class _AddTransactionView extends State<AddTransactionView> {
                   InputContainer(
                       hide: false,
                       labelName: "Name",
-                      onSaved: (value) => transactionData.name = value),
+                      onSaved: (value) => transaction.name = value),
                   InputContainer(
                       hide: false,
                       labelName: "Value",
-                      onSaved: (value) => transactionData.value = value)
+                      onSaved: (value) =>
+                          transaction.value = double.parse(value))
                 ]),
               ),
               // expanded widget to keep the buttons always alligned to the bottom
@@ -69,28 +63,14 @@ class _AddTransactionView extends State<AddTransactionView> {
                           if (formKey.currentState.validate())
                             {
                               formKey.currentState.save(),
-                              transactionData.showValues(),
-                              Navigator.pop(context),
+                              BlocProvider.of<DatabaseBloc>(context).add(
+                                  AddDatabase(
+                                      name: transaction.name,
+                                      value: transaction.value)),
+                              formKey.currentState.reset(),
                             }
                         }),
               ),
-              Container(
-                width: double.infinity,
-                child: RaisedButton(
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(40)),
-                  color: Colors.red,
-                  padding: EdgeInsets.all(12),
-                  child: Text(
-                    "Cancel",
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold),
-                  ),
-                  onPressed: () => Navigator.pop(context),
-                ),
-              )
             ],
           ),
         ));

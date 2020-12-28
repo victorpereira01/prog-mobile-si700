@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 class TransactionItem extends StatefulWidget {
   final String text;
 
-  TransactionItem({@required this.text});
+  final double value;
+
+  TransactionItem({@required this.text, @required this.value});
 
   @override
   State<StatefulWidget> createState() {
@@ -37,7 +39,7 @@ class _TransactionItem extends State<TransactionItem> {
               Text(widget.text,
                   style: TextStyle(fontSize: 21, fontWeight: FontWeight.w600)),
               Text(
-                "- RS 200,00",
+                widget.value.toString(),
                 style: TextStyle(
                     color: Colors.red,
                     fontSize: 21,

@@ -15,13 +15,6 @@ class FirebaseAuthenticationService implements AuthRepository {
     return user != null ? UserModel(user.uid) : null;
   }
 
-  Future<UserModel> signInAnonimo() async {
-    UserCredential authResult = await _firebaseAuth.signInAnonymously();
-    User user = authResult.user;
-    print("USER ID: ${user.uid}");
-    return _userFromFirebaseUser(user);
-  }
-
   Future<UserModel> signInWithEmailAndPassword(
       {String email, String password}) async {
     UserCredential authResult = await _firebaseAuth.signInWithEmailAndPassword(

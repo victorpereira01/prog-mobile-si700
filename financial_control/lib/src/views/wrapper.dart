@@ -1,5 +1,6 @@
 import 'package:financial_control/src/bloc/auth_bloc.dart';
 import 'package:financial_control/src/bloc/auth_state.dart';
+import 'package:financial_control/src/bloc/database_bloc.dart';
 import 'package:financial_control/src/views/auth/authenticate.dart';
 import 'package:financial_control/src/views/home/navigationView.dart';
 import 'package:flutter/cupertino.dart';
@@ -12,7 +13,12 @@ class Wrapper extends StatelessWidget {
     return BlocConsumer<AuthBloc, AuthState>(
       builder: (context, state) {
         if (state is Authenticated) {
-          return NavigationView();
+          return BlocProvider<DatabaseBloc>(
+            create: (context) {
+              return DatabaseBloc(state.user.uid);
+            },
+            child: NavigationView(),
+          );
         } else {
           return Authenticate();
         }

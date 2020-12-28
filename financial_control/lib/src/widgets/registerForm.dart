@@ -20,6 +20,8 @@ class _RegisterFormState extends State<RegisterForm> {
 
   bool acceptTheTerms = false;
 
+  int radioValue = 2;
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -67,12 +69,24 @@ class _RegisterFormState extends State<RegisterForm> {
                         style: TextStyle(fontSize: 18),
                       ),
                       Row(children: [
-                        Radio(value: 1, groupValue: null, onChanged: null),
+                        Radio(
+                          value: 1,
+                          groupValue: radioValue,
+                          onChanged: (int value) => setState(() {
+                            radioValue = value;
+                          }),
+                        ),
                         Text(
                           "Sim",
                           style: TextStyle(fontSize: 18),
                         ),
-                        Radio(value: 2, groupValue: null, onChanged: null),
+                        Radio(
+                          value: 2,
+                          groupValue: radioValue,
+                          onChanged: (int value) => setState(() {
+                            radioValue = value;
+                          }),
+                        ),
                         Text(
                           "Nâo",
                           style: TextStyle(fontSize: 18),

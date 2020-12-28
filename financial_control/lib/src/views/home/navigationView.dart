@@ -1,3 +1,4 @@
+import 'package:financial_control/src/views/home/addTransactionView.dart';
 import 'package:financial_control/src/views/home/mainView.dart';
 import 'package:financial_control/src/views/home/transactionsView.dart';
 import 'package:flutter/cupertino.dart';
@@ -24,7 +25,7 @@ class _NavigationView extends State<NavigationView> {
 
     _currentPage = 0;
 
-    _pages = [MainView(), TransactionsView()];
+    _pages = [MainView(), TransactionsView(), AddTransactionView()];
   }
 
   @override
@@ -47,6 +48,7 @@ class _NavigationView extends State<NavigationView> {
                 icon: Icon(Icons.home), title: Text("home")),
             BottomNavigationBarItem(
                 icon: Icon(Icons.view_list), title: Text("transactions")),
+            BottomNavigationBarItem(icon: Icon(Icons.add), title: Text("add")),
           ],
           showSelectedLabels: false,
           showUnselectedLabels: false,
