@@ -9,7 +9,10 @@ Widget header(context) {
     actions: [
       IconButton(
         icon: Icon(Icons.exit_to_app, color: Colors.red),
-        onPressed: () => BlocProvider.of<AuthBloc>(context).add(Logout()),
+        onPressed: () => {
+          BlocProvider.of<AuthBloc>(context).add(Logout()),
+          BlocProvider.of<AuthBloc>(context).add(LogoutGoogle())
+        }  
       )
     ],
     title: Text(

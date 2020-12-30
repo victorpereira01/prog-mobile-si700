@@ -6,6 +6,7 @@ import 'package:financial_control/src/bloc/auth_state.dart';
 import 'package:financial_control/src/firebase/auth.dart';
 import 'package:financial_control/src/models/user_model.dart';
 import 'package:financial_control/src/repositories/auth_repository.dart';
+import 'package:flutter/cupertino.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   AuthRepository _authService;
@@ -31,6 +32,10 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
             email: event.email, password: event.password);
       } else if (event is Logout) {
         await _authService.signOut();
+      } else if (event is LoginWithGoogle) {
+        await _authService.signInWithGoogle();
+      } else if (event is LogoutGoogle) {
+        await _authService.signOutGoogle();
       } else if (event is InnerServerEvent) {
         if (event.userModel == null) {
           yield Unauthenticated();

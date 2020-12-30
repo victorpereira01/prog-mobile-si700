@@ -5,12 +5,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class TranscationTile extends StatelessWidget {
+class TransactionTile extends StatelessWidget {
   final TransactionModel transaction;
 
   final bool isStatic;
 
-  TranscationTile({this.transaction, this.isStatic}) : super();
+  TransactionTile({this.transaction, this.isStatic}) : super();
 
   @override
   Widget build(BuildContext context) {

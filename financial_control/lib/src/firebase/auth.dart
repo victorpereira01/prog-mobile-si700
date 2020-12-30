@@ -1,9 +1,11 @@
 import 'package:financial_control/src/models/user_model.dart';
 import 'package:financial_control/src/repositories/auth_repository.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class FirebaseAuthenticationService implements AuthRepository {
   FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
+  GoogleSignIn googleSignIn = GoogleSignIn();
 
   Stream<UserModel> get user {
     return _firebaseAuth
@@ -33,5 +35,31 @@ class FirebaseAuthenticationService implements AuthRepository {
 
   Future<void> signOut() async {
     return await _firebaseAuth.signOut();
+  }
+
+  Future<String> signInWithGoogle() async {
+    print("SALVE");
+    final GoogleSignInAccount googleSignInAccount = await googleSignIn.signIn();
+
+    print("OUTRO SALVE");
+    final GoogleSignInAuthentication googleSignInAuthentication =
+        await googleSignInAccount.authentication;
+
+    final AuthCredential credential = GoogleAuthProvider.credential(
+        accessToken: googleSignInAuthentication.accessToken,
+        idToken: googleSignInAuthentication.idToken);
+
+    UserCredential authResult =
+        await _firebaseAuth.signInWithCredential(credential);
+
+    User user = authResult.user;
+
+    print("signIn succeeded: $user");
+
+    return '$user';
+  }
+
+  Future<void> signOutGoogle() async {
+    await googleSignIn.signOut();
   }
 }

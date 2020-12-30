@@ -1,7 +1,7 @@
 import 'package:financial_control/src/bloc/database_bloc.dart';
 import 'package:financial_control/src/bloc/database_state.dart';
 import 'package:financial_control/src/models/transaction_model.dart';
-import 'package:financial_control/src/views/home/transactionTile.dart';
+import 'package:financial_control/src/widgets/transactionTile.dart';
 import 'package:financial_control/src/widgets/header.dart';
 import 'package:financial_control/src/widgets/topic.dart';
 import 'package:flutter/cupertino.dart';
@@ -114,7 +114,7 @@ class _MainViewState extends State<MainView> {
                     child: ListView.builder(
                         itemCount: list.length > 4 ? 4 : list.length,
                         itemBuilder: (context, index) {
-                          return TranscationTile(
+                          return TransactionTile(
                               transaction: list[index], isStatic: true);
                         }),
                   )),

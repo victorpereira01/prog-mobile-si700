@@ -8,5 +8,9 @@ abstract class AuthRepository {
 
   Future<void> signOut();
 
+  Future<String> signInWithGoogle();
+
+  Future<void> signOutGoogle();
+
   Stream<UserModel> get user;
 }
