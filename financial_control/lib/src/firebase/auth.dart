@@ -38,10 +38,8 @@ class FirebaseAuthenticationService implements AuthRepository {
   }
 
   Future<String> signInWithGoogle() async {
-    print("SALVE");
     final GoogleSignInAccount googleSignInAccount = await googleSignIn.signIn();
 
-    print("OUTRO SALVE");
     final GoogleSignInAuthentication googleSignInAuthentication =
         await googleSignInAccount.authentication;
 
@@ -53,8 +51,6 @@ class FirebaseAuthenticationService implements AuthRepository {
         await _firebaseAuth.signInWithCredential(credential);
 
     User user = authResult.user;
-
-    print("signIn succeeded: $user");
 
     return '$user';
   }

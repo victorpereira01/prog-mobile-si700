@@ -42,7 +42,6 @@ class _RegisterFormState extends State<RegisterForm> {
                     labelName: "Password",
                     hide: true,
                     onSaved: (value) => registerUser.password = value),
-                // container to wrap the checkbox and the statement
                 Container(
                   margin: EdgeInsets.only(top: 12, bottom: 10),
                   child: Row(children: [
@@ -58,7 +57,6 @@ class _RegisterFormState extends State<RegisterForm> {
                     )
                   ]),
                 ),
-                // container to wrap the question and the radio buttons
                 Container(
                   width: double.infinity,
                   child: Column(
