@@ -26,30 +26,74 @@ class TransactionTile extends StatelessWidget {
               offset: Offset(1, 1))
         ]),
         child: Card(
-          child: ListTile(
-            title: Text(
-              transaction.name,
-              style: TextStyle(fontSize: 21, fontWeight: FontWeight.w600),
-            ),
-            trailing: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text(
-                  "RS " + transaction.value.toString(),
-                  style: TextStyle(
-                      fontSize: 21,
-                      fontWeight: FontWeight.w700,
-                      color: transaction.value > 0 ? Colors.green : Colors.red),
+          child: isStatic
+              ? ListTile(
+                  title: Text(
+                    transaction.name,
+                    style: TextStyle(fontSize: 21, fontWeight: FontWeight.w600),
+                  ),
+                  trailing: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(
+                        "RS " + transaction.value.toString(),
+                        style: TextStyle(
+                            fontSize: 21,
+                            fontWeight: FontWeight.w700,
+                            color: transaction.value > 0
+                                ? Colors.green
+                                : Colors.red),
+                      ),
+                      isStatic
+                          ? Text("")
+                          : GestureDetector(
+                              child: Icon(Icons.delete),
+                              onTap: () =>
+                                  BlocProvider.of<DatabaseBloc>(context).add(
+                                      DeleteDatabase(
+                                          transactionId: transaction.id))),
+                    ],
+                  ),
+                )
+              : ListTile(
+                  leading: transaction.value > 0
+                      ? ClipRect(
+                          child: Image.asset(
+                          'lib/public/images/upward_arrow.png',
+                          width: 30,
+                        ))
+                      : ClipRect(
+                          child: Image.asset(
+                          'lib/public/images/downward_arrow.png',
+                          width: 30,
+                        )),
+                  title: Text(
+                    transaction.name,
+                    style: TextStyle(fontSize: 21, fontWeight: FontWeight.w600),
+                  ),
+                  trailing: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(
+                        "RS " + transaction.value.toString(),
+                        style: TextStyle(
+                            fontSize: 21,
+                            fontWeight: FontWeight.w700,
+                            color: transaction.value > 0
+                                ? Colors.green
+                                : Colors.red),
+                      ),
+                      isStatic
+                          ? Text("")
+                          : GestureDetector(
+                              child: Icon(Icons.delete),
+                              onTap: () =>
+                                  BlocProvider.of<DatabaseBloc>(context).add(
+                                      DeleteDatabase(
+                                          transactionId: transaction.id))),
+                    ],
+                  ),
                 ),
-                isStatic
-                    ? Text("")
-                    : GestureDetector(
-                        child: Icon(Icons.delete),
-                        onTap: () => BlocProvider.of<DatabaseBloc>(context).add(
-                            DeleteDatabase(transactionId: transaction.id))),
-              ],
-            ),
-          ),
         ),
       ),
     );
